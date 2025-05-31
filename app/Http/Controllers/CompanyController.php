@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
@@ -24,4 +25,9 @@ class CompanyController extends Controller
 
         return back()->with('success', 'Empresa criada com sucesso!');
     }
+    public function create()
+    {
+        return Inertia::render('Company/Create');
+    }
+
 }

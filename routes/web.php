@@ -13,7 +13,10 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
+    #companyregion
+    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+    Route::post('/company/store', [CompanyController::class, 'store'])->name('company.store');
+    #endregion
 });
 
 require __DIR__ . '/settings.php';
