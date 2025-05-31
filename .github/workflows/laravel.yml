@@ -1,8 +1,6 @@
 name: Laravel
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -30,10 +28,13 @@ jobs:
         touch database/database.sqlite
     - name: Installing Package.json
       run: npm install
-      
+
     - name: Build Assets
       run: npm run build
-        
+
+    - name: Set up database
+      run: php artisan migrate --env=testing
+
     - name: Execute tests (Unit and Feature tests) via Pest
       env:
         DB_CONNECTION: sqlite
