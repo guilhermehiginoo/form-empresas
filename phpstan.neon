@@ -2,6 +2,10 @@ includes:
     - ./vendor/larastan/larastan/extension.neon
 
 parameters:
+    ignoreErrors:
+            - '#Call to an undefined method Faker\\Generator::state\(\).#'
+            - '#Call to an undefined method Faker\\Generator::cnpj\(\).#'
+            - '#Call to an undefined method Faker\\Generator::cellphone\(\).#'
     paths:
         - app
         - database
