@@ -12,10 +12,23 @@ Sistema de cadastro de empresas utilizando Laravel, Inertia.js e Vue 3.
 - **Qualidade de Código:** [Laravel Pint](https://laravel.com/docs/12.x/pint), [Larastan](https://github.com/larastan/larastan)
 - **Outros:** [Ziggy](https://github.com/tighten/ziggy) para rotas JS, [Vite](https://vitejs.dev/) para build frontend
 
+## ⚙️ Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- MySQL ou outro banco de dados compatível
+- [Herd Laravel](https://herd.laravel.com/) (opcional, para ambiente local simplificado)
+
+> Com Herd, você pode acessar o projeto via `http://form-empresas.test`.
+
 ## Instalação
 
 1. **Clone o repositório:**
    ```sh
+   cd Herd
    git clone https://github.com/guilhermehiginoo/form-empresas
    cd form-empresas
    ```
@@ -29,12 +42,11 @@ Sistema de cadastro de empresas utilizando Laravel, Inertia.js e Vue 3.
 3. **Configure o ambiente:**
    ```sh
    cp .env.example .env
-   php artisan migrate:fresh --seed
    ```
 
 4. **Rode as migrations:**
    ```sh
-   php artisan migrate
+   php artisan migrate:fresh --seed
    ```
 
 5. **Inicie os servidores de desenvolvimento:**
@@ -52,12 +64,12 @@ Sistema de cadastro de empresas utilizando Laravel, Inertia.js e Vue 3.
 
 - **Análise estática com Larastan:**
   ```sh
-  vendor/bin/phpstan analyse
+  ./vendor/bin/phpstan analyse
   ```
 
 - **Padronização de código com Laravel Pint:**
   ```sh
-  vendor/bin/pint
+  ./vendor/bin/pint
   ```
 
 - **Build de produção:**
@@ -77,7 +89,11 @@ Sistema de cadastro de empresas utilizando Laravel, Inertia.js e Vue 3.
 
 - **Laravel Pint:** Utilizado para padronização automática do código PHP.
 - **Larastan:** Utilizado para análise estática e detecção de possíveis bugs no código PHP.
+- **Husky:** Execução de testes automatizados via Git hooks (pré-commit/push). 
 
 ---
 
+## Autor
+
+> Desenvolvido por [Guilherme Higino](https://github.com/guilhermehiginoo) 
 > Projeto desenvolvido com foco em boas práticas, tipagem, testes e experiência do usuário.
