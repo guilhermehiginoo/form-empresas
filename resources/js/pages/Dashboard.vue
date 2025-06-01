@@ -47,14 +47,14 @@ const submitCompanyForm = () => {
 }
 
 const formContainerClasses =
-    'p-6 sm:p-8 rounded-xl shadow-lg flex-1 bg-gray-800 text-gray-100 border border-gray-700'
+    'p-6 sm:p-8 rounded-xl shadow-lg flex-1 bg-neutral-800 text-gray-100 border border-neutral-800'
 const inputClasses =
-    'w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:outline-none transition-colors duration-300 bg-gray-700 border-gray-600 placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500 text-white'
+    'w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:outline-none transition-colors duration-300 bg-zinc-700 border-gray-600 placeholder-gray-400 focus:ring-sky-500 focus:border-sky-500 text-white'
 const labelClasses = 'block mb-2 text-sm font-medium text-gray-300'
 const buttonClasses =
     'w-full px-6 py-3 text-base font-medium rounded-lg focus:ring-4 focus:outline-none transition-colors duration-300 bg-sky-600 hover:bg-sky-700 focus:ring-sky-800 text-white'
 const fieldsetLegendClasses = 'text-lg font-medium px-1 text-gray-200'
-const fieldsetBorderClasses = 'border-gray-700'
+const fieldsetBorderClasses = 'border-zinc-700'
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Cadastro de Empresa', href: '/dashboard' }]
 </script>

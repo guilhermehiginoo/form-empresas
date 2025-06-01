@@ -13,7 +13,6 @@ class CategoryController extends Controller
             'category' => 'required|string',
         ]);
 
-        // Cria a nova categoria
         Category::create([
             'name' => $request['category'],
         ]);

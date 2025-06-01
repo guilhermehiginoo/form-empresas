@@ -21,5 +21,6 @@ class Company extends Model
         'whatsapp_number',
         'tax_id',
         'user_id',
+        'category_id',
     ];
 }

@@ -4,48 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
-        // Valida os dados da requisição
-        $validated = $request->validate([
-            'name'            => 'required',
-            'postcode'        => 'required',
-            'state'           => 'required',
-            'city'            => 'required',
-            'street'          => 'required',
-            'number'          => 'required',
-            'neighborhood'    => 'required',
-            'whatsapp_number' => 'required',
-            'tax_id'          => 'required',
-            'category_id'     => 'required|string',
-            'new_category'    => [
-                'nullable',
-                'string',
-                'required_if:category_id,other',
-                function ($attribute, $value, $fail) {
-                    if (Category::where('name', $value)->exists()) {
-                        $fail('Category "' . $value . '" already exists.');
-                    }
-                },
-            ],
-        ]);
-
-        $categoryId = $validated['category_id'];
+        $categoryId = $request->input('category_id');
 
         if ($categoryId === 'other') {
-            $newCategory = Category::create([
-                'name' => $validated['new_category'],
+            $validatedNew = $request->validate([
+                'new_category' => [
+                    'required',
+                    'string',
+                    function ($attr, $val, $fail) {
+                        if (Category::where('name', $val)->exists()) {
+                            $fail("Category \"$val\" already exists");
+                        }
+                    },
+                ],
             ]);
-            $categoryId = $newCategory->id;
+
+            $categoryId = Category::create([
+                'name' => $validatedNew['new_category'],
+            ])->id;
+        } else {
+
+            $request->validate([
+                'category_id' => [
+                    'required',
+                    'integer',
+                    Rule::exists('categories', 'id'),
+                ],
+            ]);
         }
 
-        auth()->user()->companies()->create(array_merge(
-            $request->except(['category_id', 'new_category']),
-            ['category_id' => $categoryId]
-        ));
+        $data = $request->validate([
+            'name'            => 'required|string',
+            'postcode'        => 'required|string',
+            'state'           => 'required|string',
+            'city'            => 'required|string',
+            'street'          => 'required|string',
+            'number'          => 'required|string',
+            'neighborhood'    => 'required|string',
+            'whatsapp_number' => 'required|string',
+            'tax_id'          => 'required|string',
+        ]);
+
+        auth()->user()->companies()->create([
+            ...$data,
+            'category_id' => $categoryId,
+        ]);
 
         return back()->with('success', 'Empresa criada com sucesso!');
     }
