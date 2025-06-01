@@ -21,7 +21,7 @@ return new class () extends Migration {
             $table->string('neighborhood');
             $table->string('whatsapp_number');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->string('tax_id');
             $table->timestamps();
         });
