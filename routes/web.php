@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    if (app()->isLocal()) {
+        auth()->loginUsingId(1);
+
+        return to_route('dashboard');
+    }
+
     return Inertia::render('Welcome');
 })->name('home');
 
