@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\{Company, User};
+use App\Models\{Category, Company, User};
 use Faker\Provider\pt_BR\{Company as fakerCompany, Person, PhoneNumber};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,6 +28,7 @@ class CompanyFactory extends Factory
             'tax_id'          => $this->faker->cnpj(false),
             'whatsapp_number' => $this->faker->cellphone(),
             'user_id'         => User::factory(),
+            'category_id'     => Category::factory(),
         ];
     }
 }

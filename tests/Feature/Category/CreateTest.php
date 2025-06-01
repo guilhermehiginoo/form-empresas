@@ -12,7 +12,7 @@ it('should be able to create a new category', function () {
     actingAs($user);
 
     $response = post(route('category.store'), [
-        'category' => 'Nova Categoria',  // Enviar dado correto
+        'category' => 'Nova Categoria',
     ]);
 
     $response->assertSessionHasNoErrors();
