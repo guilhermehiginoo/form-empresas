@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
-use Inertia\Inertia;
+use App\Models\Category;
+use Illuminate\Http\{RedirectResponse, Request};
 
 class CompanyController extends Controller
 {
-    public function store(): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $request = request()->validate([
+        // Valida os dados da requisição
+        $validated = $request->validate([
             'name'            => 'required',
             'postcode'        => 'required',
             'state'           => 'required',
@@ -19,15 +20,33 @@ class CompanyController extends Controller
             'neighborhood'    => 'required',
             'whatsapp_number' => 'required',
             'tax_id'          => 'required',
+            'category_id'     => 'required|string',
+            'new_category'    => [
+                'nullable',
+                'string',
+                'required_if:category_id,other',
+                function ($attribute, $value, $fail) {
+                    if (Category::where('name', $value)->exists()) {
+                        $fail('Category "' . $value . '" already exists.');
+                    }
+                },
+            ],
         ]);
 
-        auth()->user()->companies()->create($request);
+        $categoryId = $validated['category_id'];
+
+        if ($categoryId === 'other') {
+            $newCategory = Category::create([
+                'name' => $validated['new_category'],
+            ]);
+            $categoryId = $newCategory->id;
+        }
+
+        auth()->user()->companies()->create(array_merge(
+            $request->except(['category_id', 'new_category']),
+            ['category_id' => $categoryId]
+        ));
 
         return back()->with('success', 'Empresa criada com sucesso!');
     }
-    public function create()
-    {
-        return Inertia::render('Company/Create');
-    }
-
 }
